@@ -1,19 +1,27 @@
-// variable for current hour
-var hour = moment().format("HH");
-console.log(hour);
+
 $("#currentDay").text(moment().format("dddd, MMMM Do"));
 
-// var scheduleHtml = 
-// '<div class="row ">
-// <div class="col-2 hour time-block ">time</div>
-// <div class="col-8 past"><textarea name="" id=""></textarea></div>
-// <div class="col-2 saveBtn text-center"><button class="btn "><i class="fa-solid fa-floppy-disk fa-3x"></i></div>
-// </div>';
+for (i=9; i<=17;i++){
+    var time = moment().startOf('day').add(i, "hours");
+    var rowDiv = $('<div class="row rowCss" id="rowDiv">');
+    var timeBlockDiv = $('<div class="col-2 hour time-block">'+time.format("h a")+'</div>');
+    var textFieldDiv = $('<div class=" container col-8 rowCss"><textarea class="w-100" name="" id=""></textarea></div>').addClass(getColor(i));
+    var saveButtonDiv = $('<div class="col-2 saveBtn text-center"><button class="btn "><i class="fa-solid fa-floppy-disk fa-3x"></i></div>');
+    $("#scheduleSection").append(rowDiv);
+    $("#rowDiv").append(timeBlockDiv);
+    $("#rowDiv").append(textFieldDiv);
+    $("#rowDiv").append(saveButtonDiv);
+    };
 
-for (i=9; i<=17; i++){
-    $("#scheduleSection").append('<div class="row ">\
-    <div class="col-2 hour time-block ">time</div>\
-    <div class="col-8 past"><textarea name="" id=""></textarea></div>\
-    <div class="col-2 saveBtn text-center"><button class="btn "><i class="fa-solid fa-floppy-disk fa-3x"></i></div>\
-  </div>')
-}
+function getColor(hour){
+    var currentHour = moment().hour();
+    if (hour < currentHour){
+        return "past";
+    };
+    if (hour == currentHour){
+        return "present";
+    };
+    if (hour > currentHour){
+        return "future";
+    }
+};
