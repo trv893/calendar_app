@@ -1,12 +1,14 @@
-/// <reference path="jquery-3.6.0.js" />
+
 // renders current day in jumbotron header
 $("#currentDay").text(moment().format("dddd, MMMM Do"));
 // appends html for rows representing each working hour
 for (i=9; i<=17;i++){
+    // variable for index of row
+    var index = i - 9;
     // creates variable for the 9am start time
     var time = moment().startOf('day').add(i, "hours");
     // var for creating row element
-    var rowDiv = $('<div class="row rowCss" id="rowDiv">');
+    var rowDiv = $(`<div class="row rowCss" id="hour${i}" data-i="${index}">`);
     // var for html for time column + time iterated hourly by for loop
     var timeBlockDiv = $('<div class="col-2 hour time-block">'+time.format("h a")+'</div>');
     // var for html for text area and its container
@@ -33,7 +35,8 @@ function getColor(hour){
     }
 };
 
-var todos = ["","","","","","","","",""];
+// list of user inputs generated on btn click below
+var todos = [];
 
 // to setup localstorage / global variables (todos)
 // sets up the initial display of todos
@@ -44,25 +47,36 @@ function init() {
     if (storedTodos !== null) {
       todos = storedTodos;
     }
-    // calls the render to show the Todos
+    // calls the render function to display content in local storage
     renderTodos();
   };
   
   function storeTodos() {
-    // put a JSON string representation of my array into localstorage
+    // put a JSON string representation of array todos into localstorage
     localStorage.setItem("todos", JSON.stringify(todos));
   };
 
-
-  function renderTodos(){
+// renders content from local storage in html
+  function renderTodos(i){
     // renders todos value(e) from local storage onto the correct indexed (i) row
       $("textarea").each(function(i, e){
         $(e).val(todos[i]);
-        $(e).parents(".row").find("button").on("click", function(){
-            todos[i]=$(e).val();
-            storeTodos();
-        })
       })
   };
   
-  init();
+init();
+
+
+
+$("main").on("click",".saveBtn",  function(event){
+  event.preventDefault();
+  // selects value of user input in text area
+  var val = $(event.currentTarget).parent().find("textarea").val();
+  // selects that data-i attr value from parent row of save btn for indexing in todo list
+  var todoIndex = ($(event.currentTarget).parent().attr("data-i"));
+  // updates todos list with current value 
+  todos[todoIndex] = val;
+  // console.log(todos)
+  storeTodos();
+  // storeTodos
+});
