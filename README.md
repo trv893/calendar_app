@@ -3,10 +3,11 @@
 [API Quiz](https://trv893.github.io/calendar_app/)
 
 ## A simple calander app that stores the days events
+
+Uses jquery to generate html for a daily planner that saves user inputs from hourly text field to local storage. Hours in work day are styled according to past present and future.
 ## Acceptance Criteria
 
 ```
-## Acceptance Criteria
 
 GIVEN I am using a daily planner to create a schedule
 WHEN I open the planner
@@ -22,6 +23,4 @@ THEN the text for that event is saved in local storage
 WHEN I refresh the page
 THEN the saved events persist
 ```
-![start screen](./assets/first.PNG)
-![questions example](./assets/second.PNG)
-![scorebaord](./assets/third.PNG)
+![first state](./assets/first_state.PNG)
