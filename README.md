@@ -1,6 +1,6 @@
 # calendar_app
 
-[API Quiz](https://trv893.github.io/calendar_app/)
+[Daily Planner App](https://trv893.github.io/calendar_app/)
 
 ## A simple calander app that stores the days events
 
@@ -23,4 +23,4 @@ THEN the text for that event is saved in local storage
 WHEN I refresh the page
 THEN the saved events persist
 ```
-![examp](./assets/Capture.JPG)
+![examp](./assets/calendar.JPG)
